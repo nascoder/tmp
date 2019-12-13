@@ -1,0 +1,12 @@
+name: Notify
+on: [pull_request]
+
+jobs:
+  test:
+    name: pr
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: notify
+        run: |
+          echo "hi"
