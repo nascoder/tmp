@@ -1,0 +1,21 @@
+name: PR
+on: [pull_request]
+
+jobs:
+  test:
+    name: PR
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: pr
+        run: |
+          echo "hi"
+          curl --request POST \
+            --url https://api.github.com/repos/cubiez-verified/${{ github.repository }}/pulls \
+            --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
+            --header 'content-type: application/json' \
+            --data '{
+              "title": "lesson 1 done",
+              "body": "This PR was automatically created by the GitHub Action workflow **${{ github.workflow }}**. \n\n The commit hash was: _${{ github.sha }}_.",
+              "head": "update/"
+              }'
