@@ -19,5 +19,5 @@ jobs:
             --data '{
               "title": "hhhh",
               "body": "This PR was automatically created by the GitHub Action workflow **${{ github.workflow }}**. \n\n The commit hash was: _${{ github.sha }}_.",
-              "head": "update/"
+              "head": "master"
               }'
