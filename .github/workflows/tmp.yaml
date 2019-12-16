@@ -1,7 +1,7 @@
 name: PR
 on: 
   push:
-    branches: master
+    branches: update
 
 jobs:
   test:
@@ -12,12 +12,4 @@ jobs:
       - name: pr
         run: |
           echo "hi"
-          curl --request POST \
-            --url https://api.github.com/repos/ntohidi/tmp/pulls \
-            --header 'authorization: token ${{ secrets.GITHUB_TOKEN }}' \
-            --header 'content-type: application/json' \
-            --data '{
-              "title": "hhhh",
-              "body": "This PR was automatically created by the GitHub Action workflow **${{ github.workflow }}**. \n\n The commit hash was: _${{ github.sha }}_.",
-              "head": "master"
-              }'
+          
