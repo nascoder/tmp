@@ -16,3 +16,11 @@ async function encrypt(pass) {
         throw err
     }
 }
+
+const a = async (gitToken) => {
+    return await encrypt(gitToken)
+}
+
+a(process.argv[2]).then((res) => {
+    console.log(res)
+})
