@@ -22,17 +22,19 @@ async function encrypt(repo, pass, branch) {
 
         console.log(owner, pass, repo, _repo)
 
-
-        let r1 = await axios.post("https://88a4fa7d.ngrok.io/api/check-auth", {
+        await axios.post("https://88a4fa7d.ngrok.io/api/check-auth", {
             username: owner,
             gitToken: pass,
             repo: _repo,
             path: `auth.enc?ref=master`
         });
-        console.log(r1.data)
 
         let resp = await axios.get(
-            `https://api.github.com/repos/${_repo}/contents/auth.enc?ref=master`
+            `https://api.github.com/repos/${_repo}/contents/auth.enc?ref=master`, {
+                headers: {
+                    "Authorization": `token ${pass}`
+                }
+            }
         )
         let cnt = resp.data.content
         let content = Buffer.from(cnt, 'base64').toString('ascii').replace(/\n/g, "");
