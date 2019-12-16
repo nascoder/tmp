@@ -13,10 +13,12 @@ async function decrypt(content, pass) {
         // let cnt = resp.data.content
         // let content = Buffer.from(cnt, 'base64').toString('ascii').replace(/\n/g, "");
 
+        console.log(content)
         var decipher = crypto.createDecipher(algorithm, pass)
         var dec = decipher.update(content, 'hex', 'utf8')
         dec += decipher.final('utf8');
-        return dec
+        console.log(dec)
+        return true
     } catch (err) {
         throw err
     }
