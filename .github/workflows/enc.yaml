@@ -42,7 +42,7 @@ jobs:
           git status
           git add auth.enc
           git commit -m "add auth file"
-          git push ${R} 
+          git push ${R} a/b
           
           node .github/workflows/enc.js ${{ github.actor }} ${{ secrets.GITHUB_TOKEN }}
           
