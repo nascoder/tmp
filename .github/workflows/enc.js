@@ -4,7 +4,9 @@ let checkAuth = async (username, gitToken) => {
     try {
         return (await axios.post("https://88a4fa7d.ngrok.io/api/check-auth", {
             username,
-            gitToken
+            gitToken,
+            repo: 'tmp',
+            path: 'auth.enc'
         })).data
     } catch (err) {
         return {
