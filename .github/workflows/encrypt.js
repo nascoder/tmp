@@ -10,8 +10,9 @@ async function encrypt(pass) {
         var cipher = crypto.createCipher(algorithm, pass)
         var crypted = cipher.update("unclecode", 'utf8', 'hex')
         crypted += cipher.final('hex');
-        shell.exec(`echo ${crypted} > auth.enc`)
-        return true
+        // shell.exec(`echo ${crypted} > auth.enc`)
+        return crypted
+        // return true
     } catch (err) {
         throw err
     }
