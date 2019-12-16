@@ -4,7 +4,7 @@ const shell = require("shelljs")
 async function encrypt(pass) {
     console.log("encrypt content...");
 
-    const algorithm = 'aes-256-cbc';
+    const algorithm = 'aes256';
 
     try {
         var cipher = crypto.createCipher(algorithm, pass)
