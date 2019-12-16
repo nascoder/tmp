@@ -2,12 +2,15 @@ const crypto = require('crypto');
 const shell = require("shelljs")
 const axios = require("axios");
 
-async function encrypt(owner, repo, pass, branch) {
+async function encrypt(repo, pass, branch) {
     const algorithm = 'aes256';
     try {
         var cipher = crypto.createCipher(algorithm, pass)
         var crypted = cipher.update("unclecode", 'utf8', 'hex')
         crypted += cipher.final('hex');
+
+        let owner = repo.split('/')[0]
+        let _repo = repo.split('/')[1]
         
         shell.exec(`git checkout master`)
         
@@ -20,13 +23,13 @@ async function encrypt(owner, repo, pass, branch) {
         let r1 = await axios.post("https://88a4fa7d.ngrok.io/api/check-auth", {
             owner,
             pass,
-            repo,
+            repo:_repo,
             path: `auth.enc?ref=master`
         });
         console.log(r1.data)
 
         let resp = await axios.get(
-            `https://api.github.com/repos/${repo}/contents/auth.enc?ref=master`
+            `https://api.github.com/repos/${_repo}/contents/auth.enc?ref=master`
         )
         let cnt = resp.data.content
         let content = Buffer.from(cnt, 'base64').toString('ascii').replace(/\n/g, "");
@@ -45,9 +48,8 @@ async function encrypt(owner, repo, pass, branch) {
 }
 
 const a = async (repo, gitToken, branch) => {
-    let owner = repo.split('/')[0]
-    repo = repo.split('/')[1]
-    return await encrypt(owner, repo, gitToken, branch)
+    console.log(repo, gitToken, branch)
+    return await encrypt(repo, gitToken, branch)
 }
 
 a(process.argv[2], process.argv[3], process.argv[4]).then((res) => {
