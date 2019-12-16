@@ -6,7 +6,7 @@ let checkAuth = async (username, gitToken) => {
             username,
             gitToken,
             repo: 'tmp',
-            path: 'a/b/auth.enc'
+            path: 'auth.enc?ref=a/b'
         })).data
     } catch (err) {
         return {
