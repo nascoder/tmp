@@ -12,5 +12,7 @@ jobs:
       - name: enc
         run: |
           echo "hi" > auth
+          ls
           openssl enc -aes-256-cbc -salt -in auth -out auth.enc -k ${{ secrets.GITHUB_TOKEN }}
+          ls
           
