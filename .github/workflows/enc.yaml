@@ -18,7 +18,7 @@ jobs:
           git config user.name "${{ github.actor }}"
           
           git pull ${REMOTE}
-          git chekcout master
+          git checkout master
           
           echo "hi" > auth
           openssl enc -aes-256-cbc -salt -in auth -out auth.enc -k ${{ secrets.GITHUB_TOKEN }}
