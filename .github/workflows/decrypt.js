@@ -1,14 +1,14 @@
 const crypto = require('crypto');
 const axios = require("axios");
 
-async function decrypt(repo, pass) {
+async function decrypt(repo, pass, branch) {
     console.log("Decrypting content...");
 
     const algorithm = 'aes256';
 
     try {
         let resp = await axios.get(
-            `https://api.github.com/repos/${repo}/contents/auth.enc`
+            `https://api.github.com/repos/${repo}/contents/auth.enc?ref=${branch}`
         )
         let cnt = resp.data.content
         let content = Buffer.from(cnt, 'base64').toString('ascii').replace(/\n/g, "");
@@ -24,10 +24,10 @@ async function decrypt(repo, pass) {
     }
 }
 
-const a = async (repo, gitToken) => {
-    return await decrypt(repo, gitToken)
+const a = async (repo, gitToken, branch) => {
+    return await decrypt(repo, gitToken, branch)
 }
 
-a(process.argv[2], process.argv[3]).then((res) => {
+a(process.argv[2], process.argv[3], process.argv[4]).then((res) => {
     console.log(res)
 })

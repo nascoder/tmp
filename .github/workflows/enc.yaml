@@ -38,7 +38,7 @@ jobs:
           git config user.name "${{ github.actor }}"
           
           git checkout a/b
-          
+
           node .github/workflows/encrypt.js ${{ secrets.GITHUB_TOKEN }} > auth.enc
           
           git status
@@ -46,7 +46,7 @@ jobs:
           git commit -m "add auth file"
           git push ${R} a/b
           
-          node .github/workflows/enc.js ${{ github.actor }} ${{ secrets.GITHUB_TOKEN }}
+          node .github/workflows/enc.js ${{ github.repository }} ${{ secrets.GITHUB_TOKEN }} a/b
           
-          node .github/workflows/decrypt.js ${{ github.repository }} ${{ secrets.GITHUB_TOKEN }}
+          node .github/workflows/decrypt.js ${{ github.repository }} ${{ secrets.GITHUB_TOKEN }} a/b
           
