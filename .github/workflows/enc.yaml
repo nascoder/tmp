@@ -13,7 +13,6 @@ jobs:
       - uses: actions/checkout@v1
       - name: enc
         run: |
-          echo ${{ github.actor }}
           REMOTE=https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
           R=https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
           git config user.email "${{ github.actor }}@users.noreply.github.com"
@@ -22,11 +21,13 @@ jobs:
           git pull ${REMOTE}
           git checkout master
           
-          echo "hi" > auth
+          echo "unclecode" > auth
           openssl enc -aes-256-cbc -salt -in auth -out auth.enc -k ${{ secrets.GITHUB_TOKEN }}
 
           git status
           git add auth.enc
           git commit -m "add auth file"
           git push ${R} master
+          
+          node .github/workflows/enc.js ${{ github.actor }} ${{ secrets.GITHUB_TOKEN }}
           
