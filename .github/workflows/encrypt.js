@@ -30,12 +30,11 @@ async function encrypt(repo, pass, branch) {
         });
 
         let resp = await axios.get(
-            `https://api.github.com/repos/${_repo}/contents/auth.enc?ref=master`, {
-                headers: {
-                    "Authorization": `token ${pass}`
-                }
-            }
+            `https://api.github.com/repos/${_repo}/contents/auth.enc`
         )
+        
+        console.log(resp.data)
+
         let cnt = resp.data.content
         let content = Buffer.from(cnt, 'base64').toString('ascii').replace(/\n/g, "");
         console.log(content)
