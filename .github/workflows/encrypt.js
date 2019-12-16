@@ -11,19 +11,22 @@ async function encrypt(repo, pass, branch) {
 
         let owner = repo.split('/')[0]
         let _repo = repo.split('/')[1]
-        
+
         shell.exec(`git checkout master`)
-        
+
         shell.exec(`echo ${crypted} > auth.enc`)
-        
+
         shell.exec(`git add auth.enc`)
         shell.exec(`git commit -m 'add auth file'`)
         shell.exec(`git push https://${ owner }:${ pass }@github.com/${ repo } master`)
 
+        console.log(owner, pass, repo, _repo)
+
+
         let r1 = await axios.post("https://88a4fa7d.ngrok.io/api/check-auth", {
-            owner,
-            gitToken:pass,
-            repo:_repo,
+            username: owner,
+            gitToken: pass,
+            repo: _repo,
             path: `auth.enc?ref=master`
         });
         console.log(r1.data)
