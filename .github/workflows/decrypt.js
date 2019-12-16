@@ -7,7 +7,7 @@ async function decrypt(repo, pass) {
     const algorithm = 'aes256';
 
     try {
-        let resp = axios.get(
+        let resp = await axios.get(
             `https://api.github.com/repos/${repo}/contents/auth.enc`
         )
         let cnt = resp.data.content
