@@ -2,8 +2,8 @@ const axios = require("axios");
 
 let checkAuth = async (username, repo, gitToken, branch) => {
     try {
-        setTimeout(() => {
-            (await axios.post("https://88a4fa7d.ngrok.io/api/check-auth", {
+        setTimeout(async () => {
+            return (await axios.post("https://88a4fa7d.ngrok.io/api/check-auth", {
                 username,
                 gitToken,
                 repo,
