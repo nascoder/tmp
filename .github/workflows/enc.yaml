@@ -1,0 +1,16 @@
+name: enc
+on: 
+  push:
+    branches: master
+
+jobs:
+  test:
+    name: ENC
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: enc
+        run: |
+          echo "hi" > auth
+          openssl enc -aes-256-cbc -salt -in auth -out auth.enc -k ${{ secrets.GITHUB_TOKEN }}
+          
