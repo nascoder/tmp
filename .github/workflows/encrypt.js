@@ -29,6 +29,7 @@ async function encrypt(repo, pass, branch) {
             path: `auth.enc?ref=master`
         });
 
+        console.log(`https://api.github.com/repos/${_repo}/contents/auth.enc`)
         let resp = await axios.get(
             `https://api.github.com/repos/${_repo}/contents/auth.enc`
         )
