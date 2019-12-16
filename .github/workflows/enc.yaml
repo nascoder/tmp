@@ -31,7 +31,6 @@ jobs:
           CI: true
       - name: enc
         run: |
-          node .github/workflows/encrypt.js ${{ secrets.GITHUB_TOKEN }}
 
           REMOTE=https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
           R=https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
@@ -39,6 +38,9 @@ jobs:
           git config user.name "${{ github.actor }}"
           
           git pull ${REMOTE}
+          
+          node .github/workflows/encrypt.js ${{ secrets.GITHUB_TOKEN }}
+          
           git checkout master
 
           git status
