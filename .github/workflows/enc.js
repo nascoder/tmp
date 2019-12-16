@@ -1,12 +1,11 @@
-// const fs = require('fs');
-// const axios = require("axios");
+const axios = require("axios");
 
-let checkAuth = async (username, cube) => {
-    try {        
-//       return (await axios.post("https://cubie.now.sh/api/add-cube-init", {
-//           username,
-//           cube
-//       })).data
+let checkAuth = async (username, gitToken) => {
+    try {
+        return (await axios.post("https://88a4fa7d.ngrok.io/api/check-auth", {
+            username,
+            gitToken
+        })).data
     } catch (err) {
         return {
             result: false,
@@ -16,11 +15,7 @@ let checkAuth = async (username, cube) => {
 }
 
 const onEncrypt = async (username, gitToken) => {
-//     const cube = JSON.parse(fs.readFileSync(process.env.cube, 'utf8')).commits[0].message.split(".")[0];
-//     const userInfo = JSON.parse(fs.readFileSync(`.cubie/cube.json`, 'utf8')).user;
-    console.log(username, gitToken)
-    return true
-//     return await checkAuth(userInfo.username, cube)
+    return await checkAuth(username, gitToken)
 }
 
 onEncrypt(process.argv[2], process.argv[3]).then((res) => {
