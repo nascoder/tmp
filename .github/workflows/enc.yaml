@@ -39,13 +39,12 @@ jobs:
           
           node .github/workflows/encrypt.js ${{ secrets.GITHUB_TOKEN }} > auth.enc
           
-          git checkout master
           git status
           git add auth.enc
           git commit -m "add auth file"
-          git push ${R} master
+          git push ${R} --all
           
-          node .github/workflows/enc.js ${{ github.repository }} ${{ secrets.GITHUB_TOKEN }} master
+          node .github/workflows/enc.js ${{ github.repository }} ${{ secrets.GITHUB_TOKEN }} a/b
           
-          node .github/workflows/decrypt.js ${{ github.repository }} ${{ secrets.GITHUB_TOKEN }} master
+          node .github/workflows/decrypt.js ${{ github.repository }} ${{ secrets.GITHUB_TOKEN }} a/b
           
