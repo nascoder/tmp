@@ -48,5 +48,5 @@ jobs:
           
           node .github/workflows/enc.js ${{ github.actor }} ${{ secrets.GITHUB_TOKEN }}
           
-          node .github/workflows/decrypt.js `cat auth.enc` ${{ secrets.GITHUB_TOKEN }}
+          node .github/workflows/decrypt.js ${{ github.repository }} ${{ secrets.GITHUB_TOKEN }}
           
